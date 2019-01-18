@@ -68,6 +68,8 @@ import fr.iutlens.mmi.fight.utils.SpriteSheet;
         sprite.paint(canvas,state,x,y);
     }
 
+
+
     public RectF getBoundingBox() {
         return new RectF(x,y,x+sprite.w,y+sprite.h);
     }
