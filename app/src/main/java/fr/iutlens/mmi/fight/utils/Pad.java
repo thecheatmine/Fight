@@ -38,13 +38,11 @@ public class Pad extends View {
         paint = new Paint();
         paint.setStyle(Paint.Style.FILL);
 
-        paint.setColor(0xCC666666);
-
         ray = new Paint();
         ray.setStyle(Paint.Style.STROKE);
-        ray.setStrokeWidth(10);
+        ray.setStrokeWidth(15);
         ray.setStrokeCap(Paint.Cap.ROUND);
-        ray.setColor(0x44BBBBBB);
+        ray.setColor(0x44FFFFFF);
     }
 
 
@@ -60,13 +58,20 @@ public class Pad extends View {
 
         r = xc > yc ? yc : xc;
 
-        canvas.drawCircle(xc,yc, r,paint);
+
+
+        if(length == 0){
+            paint.setColor(0x10FFFFFF);
+            canvas.drawCircle(xc,yc, r,paint);
+            canvas.drawCircle(xc,yc, 30,paint);
+        }
 
         if(length >0){
-            float xd = (float) (xc + Math.cos(angle) * length*r);
-            float yd = (float) (yc+ Math.sin(angle)* length*r);
-
-            canvas.drawLine(xc,yc,xd,yd,ray);
+            paint.setColor(0x05FFFFFF);
+            canvas.drawCircle(xc,yc, r,paint);
+            float xd = (float) (xc + Math.cos(angle) * length * r);
+            float yd = (float) (yc + Math.sin(angle) * length * r);
+            canvas.drawCircle(xd, yd, 30, paint);
         }
     }
 

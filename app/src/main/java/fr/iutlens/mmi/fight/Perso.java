@@ -25,7 +25,10 @@ class Perso extends Sprite {
     @Override
     public boolean act(boolean out) {
         super.act(out);
-        if(vx != 0 && vy != 0) frame++;
+
+        if(vx != 0 && vy != 0) {
+            frame++;
+        }
 
         if(vx > vy && vx > -vy){
             state = 8;
@@ -35,8 +38,10 @@ class Perso extends Sprite {
         }
         else if(vx < vy && -vx < vy){
             state = 0;
+
         }
         else {
+            //S'il ne bouge pas
             state = 4;
         }
         state += (frame /16)%4;

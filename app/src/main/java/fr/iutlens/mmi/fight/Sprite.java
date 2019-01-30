@@ -14,7 +14,7 @@ import fr.iutlens.mmi.fight.utils.SpriteSheet;
     protected final SpriteSheet sprite;
     protected int state;
 
-    protected float x;
+    public float x;
     protected float y;
 
     protected float vx,vy;
@@ -53,7 +53,7 @@ import fr.iutlens.mmi.fight.utils.SpriteSheet;
             y += vy;
         }
         else {
-            if(x + vx >= 0 && x + vx + sprite.w <= GameView.SIZE_X){
+            if(x + vx >= 0 && x + vx + sprite.w <= GameView.SIZE_X) {
                 x += vx;
             }
             if(y + vy >= 0 && y + vy + sprite.h <= GameView.SIZE_Y) {
