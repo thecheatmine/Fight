@@ -114,7 +114,8 @@ public class GameView extends View implements TimerAction {
 
 
             if (pad != null){
-                history.moveA((float) pad.getLength()*5, -(float) Math.toDegrees(pad.getAngle()));
+                history.moveA((float) pad.getLength(), -(float) Math.toDegrees(pad.getAngle()));
+                history.moveB((float) pad.getLength(), -(float) Math.toDegrees(pad.getAngle()));
                 if (fire) history.fireA();
 
                 fire = false;
@@ -125,7 +126,7 @@ public class GameView extends View implements TimerAction {
             act(laserB);
 
             for(int i=0; i < laserA.size(); i++) {
-                if(laserA.get(i).x > GameView.SIZE_X || laserA.get(i).x < 0){
+                if(laserA.get(i).x > GameView.SIZE_X + 100){
                     laserA.remove(i);
                 }
             }
@@ -185,7 +186,7 @@ public class GameView extends View implements TimerAction {
      * @param h
      */
     private void setZoom(int w, int h) {
-        if (w<=0 ||h <=0) return;
+        if (w <= 0 || h <= 0) return;
 
         // Dimensions dans lesquelles ont souhaite dessiner
         RectF src = new RectF(0,0,SIZE_X,SIZE_Y);

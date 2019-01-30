@@ -94,9 +94,29 @@ public class History {
     }
 
     public void moveA(float speed, float direction) {
-        final MoveCommand command = new MoveCommand(frame, "A" + round, speed, direction);
-        registerCommand(command);
-        command.apply(this);
+        if(persoA.x > GameView.SIZE_X/2){
+            final MoveCommand command = new MoveCommand(frame, "A" + round, speed/2, direction);
+            registerCommand(command);
+            command.apply(this);
+        }
+        else {
+            final MoveCommand command = new MoveCommand(frame, "A" + round, speed*5, direction);
+            registerCommand(command);
+            command.apply(this);
+        }
+    }
+
+    public void moveB(float speed, float direction) {
+        if(persoB.x < GameView.SIZE_X/2){
+            final MoveCommand command = new MoveCommand(frame, "B" + round, speed/2, direction);
+            registerCommand(command);
+            command.apply(this);
+        }
+        else {
+            final MoveCommand command = new MoveCommand(frame, "B" + round, speed*5, direction);
+            registerCommand(command);
+            command.apply(this);
+        }
     }
 
     public void fireA() {
