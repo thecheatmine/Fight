@@ -162,9 +162,11 @@ public class GameView extends View implements TimerAction {
 
 
         for(Sprite s : laserA){
+            s.state = (int)Math.round(Math.random()*3);
             s.paint(canvas);
         }
         for(Sprite s : laserB){
+            s.state = (int)Math.round(Math.random()*3);
             s.paint(canvas);
         }
         history.paint(canvas);
