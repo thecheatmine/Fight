@@ -89,6 +89,19 @@ public class History {
         persoA.act(false);
         persoB.act(false);
 
+        for(int i = 0; i < laserA.size(); i++) {
+            System.out.println(laserA.get(i).x);
+            if(laserA.get(i).x > persoB.x
+                && laserA.get(i).x < (persoB.x+80)
+                && laserA.get(i).y > persoB.y
+                && laserA.get(i).y < (persoB.y+125)) {
+                persoB.y = 0;
+            }
+            if(laserA.get(i).x > GameView.SIZE_X + 100){
+                laserA.remove(i);
+            }
+        }
+
         frame++;
         if (frame == FRAME_PER_ROUND) prepareRound();
     }
@@ -121,6 +134,12 @@ public class History {
 
     public void fireA() {
         final FireCommand command = new FireCommand(frame, "A" + round);
+        registerCommand(command);
+        command.apply(this);
+    }
+
+    public void fireB() {
+        final FireCommand command = new FireCommand(frame, "B" + round);
         registerCommand(command);
         command.apply(this);
     }

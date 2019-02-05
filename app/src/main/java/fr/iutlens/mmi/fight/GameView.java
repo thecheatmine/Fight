@@ -36,6 +36,10 @@ public class GameView extends View implements TimerAction {
     private History history;
     private boolean fire;
 
+    double vitesseB = 0;
+    double angleB = 0;
+    public int IAupdate;
+
 
     public GameView(Context context) {
         super(context);
@@ -61,12 +65,12 @@ public class GameView extends View implements TimerAction {
      * @param defStyle
      */
     private void init(AttributeSet attrs, int defStyle) {
-        SpriteSheet.register(R.mipmap.spritepersoblue,4,4,this.getContext());
-        SpriteSheet.register(R.mipmap.spritepersored,4,4,this.getContext());
-        SpriteSheet.register(R.mipmap.spritefantomeblue,4,4,this.getContext());
-        SpriteSheet.register(R.mipmap.spritefantomered,4,4,this.getContext());
+        SpriteSheet.register(R.mipmap.spritepersoblue,4,5,this.getContext());
+        SpriteSheet.register(R.mipmap.spritepersored,4,5,this.getContext());
+        SpriteSheet.register(R.mipmap.spritefantomeblue,4,5,this.getContext());
+        SpriteSheet.register(R.mipmap.spritefantomered,4,5,this.getContext());
         SpriteSheet.register(R.mipmap.arena,1,1,this.getContext());
-        SpriteSheet.register(R.mipmap.bullet,2,1,this.getContext());
+        SpriteSheet.register(R.mipmap.sprite_balle,4,1,this.getContext());
 
 
 
@@ -115,21 +119,25 @@ public class GameView extends View implements TimerAction {
 
             if (pad != null){
                 history.moveA((float) pad.getLength(), -(float) Math.toDegrees(pad.getAngle()));
-                history.moveB((float) pad.getLength(), -(float) Math.toDegrees(pad.getAngle()));
                 if (fire) history.fireA();
 
                 fire = false;
             }
 
+            // IA de B
+            IAupdate++;
+            if(IAupdate/50 > 1) {
+                IAupdate = 0;
+                vitesseB = Math.max(Math.random(), 0.3);
+                angleB = Math.random() * 2 * Math.PI;
+                history.fireB();
+            }
+            history.moveB((float) vitesseB, (float) Math.toDegrees(angleB));
+
             history.act();
             act(laserA);
             act(laserB);
 
-            for(int i=0; i < laserA.size(); i++) {
-                if(laserA.get(i).x > GameView.SIZE_X + 100){
-                    laserA.remove(i);
-                }
-            }
 
             invalidate(); // demande à rafraichir la vue
         }

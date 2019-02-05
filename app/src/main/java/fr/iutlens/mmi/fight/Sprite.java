@@ -14,7 +14,7 @@ import fr.iutlens.mmi.fight.utils.SpriteSheet;
     protected final SpriteSheet sprite;
     protected int state;
 
-    public float x;
+    protected float x;
     protected float y;
 
     protected float vx,vy;

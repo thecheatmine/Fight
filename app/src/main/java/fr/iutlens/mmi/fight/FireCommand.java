@@ -13,6 +13,7 @@ public class FireCommand extends Command {
     @Override
     public void apply(History history) {
         Perso p = history.perso.get(target);
-        p.fire();
+        if(target.indexOf("A") !=-1? true: false) p.fire(true);
+        else p.fire(false);
     }
 }
