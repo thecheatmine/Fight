@@ -1,6 +1,7 @@
 package fr.iutlens.mmi.fight;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.RectF;
@@ -16,6 +17,8 @@ import fr.iutlens.mmi.fight.utils.Pad;
 import fr.iutlens.mmi.fight.utils.RefreshHandler;
 import fr.iutlens.mmi.fight.utils.SpriteSheet;
 import fr.iutlens.mmi.fight.utils.TimerAction;
+
+import static android.support.v4.content.ContextCompat.startActivity;
 
 
 public class GameView extends View implements TimerAction {
@@ -40,6 +43,7 @@ public class GameView extends View implements TimerAction {
     double vitesseB = 0;
     double angleB = 0;
     public int IAupdate;
+    private int level;
 
 
     public GameView(Context context) {
@@ -128,7 +132,7 @@ public class GameView extends View implements TimerAction {
 
                 // IA de B
                 IAupdate++;
-                if(0 == 1) {
+                if(level == 1) {
                     //Level 1
                     if(IAupdate/50 > 1) {
                         IAupdate = 0;
@@ -137,7 +141,7 @@ public class GameView extends View implements TimerAction {
                         history.fireB();
                     }
                 }
-                else if(0 == 1) {
+                else if(level == 2) {
                     //Level 2
                     if(IAupdate/25 > 1) {
                         IAupdate = 0;
@@ -146,7 +150,7 @@ public class GameView extends View implements TimerAction {
                         history.fireB();
                     }
                 }
-                else if(0 == 1) {
+                else if(level == 3) {
                     //Level 3
                     if(IAupdate/25 > 1) {
                         IAupdate = 0;
@@ -158,7 +162,7 @@ public class GameView extends View implements TimerAction {
                         history.fireB();
                     }
                 }
-                else if(0 == 1) {
+                else if(level == 4) {
                     //Level 4
                     if(IAupdate/10 > 1) {
                         IAupdate = 0;
@@ -170,7 +174,7 @@ public class GameView extends View implements TimerAction {
                         else angleB = Math.random() * 2 * Math.PI;
                     }
                 }
-                else if(0 == 1) {
+                else if(level == 5) {
                     //Level 5
                     if(IAupdate/10 > 1) {
                         IAupdate = 0;
@@ -203,7 +207,7 @@ public class GameView extends View implements TimerAction {
                     }
                 }
                 //A faire
-                else if(0 == 0) {
+                else if(level == 6) {
                     //Level 6
                     if(IAupdate/10 > 1) {
                         IAupdate = 0;
@@ -224,7 +228,7 @@ public class GameView extends View implements TimerAction {
                         //Regarder pour chaque laserA s'il y en a un avec le même Y
                         for(int i = 0; i < laserA.size(); i++) {
                             if(laserA.get(i).y > history.persoB.y - 100
-                                    && laserA.get(i).y < history.persoB.y + 100 ) {
+                                && laserA.get(i).y < history.persoB.y + 100 ) {
 
                                 //Si oui alors "esquiver"
                                 Random randomGenerator = new Random();
@@ -245,6 +249,11 @@ public class GameView extends View implements TimerAction {
 
                 invalidate(); // demande à rafraichir la vue
             }
+        }
+        else {
+            Intent intent = new Intent(getContext(),EndGameActivity.class);
+            //input.putextra
+            getContext().startActivity(intent);
         }
     }
 
@@ -322,5 +331,13 @@ public class GameView extends View implements TimerAction {
 
     public void setPad(Pad pad) {
         this.pad = pad;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public int getLevel() {
+        return level;
     }
 }
