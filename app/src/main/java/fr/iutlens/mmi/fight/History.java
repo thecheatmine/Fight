@@ -95,7 +95,7 @@ public class History {
                 && laserB.get(i).y > persoA.y
                 && laserB.get(i).y < (persoA.y+125)) {
                 persoA.y = 0;
-                persoA.hit = true;
+                persoA.vie -= 1;
                 laserB.remove(i);
             }
             else if(laserB.get(i).x < -100){
@@ -109,7 +109,7 @@ public class History {
                     && laserA.get(i).y > persoB.y
                     && laserA.get(i).y < (persoB.y+125)) {
                 persoB.y = 0;
-                persoB.hit = true;
+                persoB.vie -= 1;
                 laserA.remove(i);
             }
             else if(laserA.get(i).x > GameView.SIZE_X + 100){

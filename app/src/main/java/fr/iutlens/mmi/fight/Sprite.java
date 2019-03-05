@@ -20,6 +20,7 @@ import fr.iutlens.mmi.fight.utils.SpriteSheet;
     protected float vx,vy;
 
     public boolean hit;
+    public int vie;
 
 
 
@@ -32,6 +33,7 @@ import fr.iutlens.mmi.fight.utils.SpriteSheet;
 
         state = 0;
         hit = false;
+        vie = 3;
     }
 
     Sprite(int id, float x, float y, float speed, float angle) {

@@ -10,6 +10,7 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import fr.iutlens.mmi.fight.utils.Pad;
 import fr.iutlens.mmi.fight.utils.RefreshHandler;
@@ -113,33 +114,137 @@ public class GameView extends View implements TimerAction {
      */
     @Override
     public void update() {
-        if (this.isShown()) { // Si la vue est visible
-            timer.scheduleRefresh(16); // programme le prochain rafraichissement
+        if(history.persoA.vie > 0 && history.persoB.vie > 0) {
+            if (this.isShown()) { // Si la vue est visible
+                timer.scheduleRefresh(16); // programme le prochain rafraichissement
 
 
-            if (pad != null){
-                history.moveA((float) pad.getLength(), -(float) Math.toDegrees(pad.getAngle()));
-                if (fire) history.fireA();
+                if (pad != null){
+                    history.moveA((float) pad.getLength(), -(float) Math.toDegrees(pad.getAngle()));
+                    if (fire) history.fireA();
 
-                fire = false;
+                    fire = false;
+                }
+
+                // IA de B
+                IAupdate++;
+                if(0 == 1) {
+                    //Level 1
+                    if(IAupdate/50 > 1) {
+                        IAupdate = 0;
+                        vitesseB = Math.max(Math.random(), 0.3);
+                        angleB = Math.random() * 2 * Math.PI;
+                        history.fireB();
+                    }
+                }
+                else if(0 == 1) {
+                    //Level 2
+                    if(IAupdate/25 > 1) {
+                        IAupdate = 0;
+                        vitesseB = Math.max(Math.random(), 0.3);
+                        angleB = Math.random() * 2 * Math.PI;
+                        history.fireB();
+                    }
+                }
+                else if(0 == 1) {
+                    //Level 3
+                    if(IAupdate/25 > 1) {
+                        IAupdate = 0;
+                        vitesseB = Math.max(Math.random(), 0.3);
+                        if(history.persoB.x < GameView.SIZE_X-(GameView.SIZE_X/4)) {
+                            angleB = 0;
+                        }
+                        else angleB = Math.random() * 2 * Math.PI;
+                        history.fireB();
+                    }
+                }
+                else if(0 == 1) {
+                    //Level 4
+                    if(IAupdate/10 > 1) {
+                        IAupdate = 0;
+                        if(Math.random()*3 > 2) history.fireB();
+                        vitesseB = Math.max(Math.random(), 0.4);
+                        if(history.persoB.x < GameView.SIZE_X-(GameView.SIZE_X/4)) {
+                            angleB = Math.random() * 2 -1;
+                        }
+                        else angleB = Math.random() * 2 * Math.PI;
+                    }
+                }
+                else if(0 == 1) {
+                    //Level 5
+                    if(IAupdate/10 > 1) {
+                        IAupdate = 0;
+
+                        // Une chance sur 3 de tirer
+                        if(Math.random()*3 > 2) history.fireB();
+
+                        //Vitesse mini = 0.4 ou bien aléatoirement jusqu'à 1
+                        vitesseB = Math.max(Math.random(), 0.4);
+
+                        //Si il est à moins de 3/4 du terrain (donc dépasse sa moitié) retourner vers la droite
+                        if(history.persoB.x < GameView.SIZE_X-(2*(GameView.SIZE_X/5))) {
+                            //Droite mais angle un peu random
+                            angleB = Math.random() * 2 - 1;
+                        }
+                        else angleB = Math.random() * 2 * Math.PI; //Sinon juste full random
+
+                        //Regarder pour chaque laserA s'il y en a un avec le même Y
+                        for(int i = 0; i < laserA.size(); i++) {
+                            if(laserA.get(i).y > history.persoB.y - 100
+                                    && laserA.get(i).y < history.persoB.y + 100 ) {
+
+                                //Si oui alors "esquiver" 2 fois sur 3
+                                Random randomGenerator = new Random();
+                                int randomInt = randomGenerator.nextInt(3);
+                                if(randomInt == 1) angleB = Math.PI;
+                                else if(randomInt == 2) angleB = -Math.PI;
+                            }
+                        }
+                    }
+                }
+                //A faire
+                else if(0 == 0) {
+                    //Level 6
+                    if(IAupdate/10 > 1) {
+                        IAupdate = 0;
+
+                        // Une chance sur 3 de tirer
+                        if(Math.random()*3 > 2) history.fireB();
+
+                        //Vitesse mini = 0.4 ou bien aléatoirement jusqu'à 1
+                        vitesseB = Math.max(Math.random()*1.1, 0.5);
+
+                        //Si il est à moins de 3/5 du terrain, retourner vers la droite
+                        if(history.persoB.x < GameView.SIZE_X-(2*(GameView.SIZE_X/5))) {
+                            //Droite mais angle un peu random
+                            angleB = Math.random() * 2 - 1;
+                        }
+                        else angleB = Math.random() * 2 * Math.PI; //Sinon juste full random
+
+                        //Regarder pour chaque laserA s'il y en a un avec le même Y
+                        for(int i = 0; i < laserA.size(); i++) {
+                            if(laserA.get(i).y > history.persoB.y - 100
+                                    && laserA.get(i).y < history.persoB.y + 100 ) {
+
+                                //Si oui alors "esquiver"
+                                Random randomGenerator = new Random();
+                                int randomInt = randomGenerator.nextInt(2);
+                                if(randomInt == 1) angleB = Math.PI;
+                                else if(randomInt == 2) angleB = -Math.PI;
+                            }
+                        }
+                    }
+                }
+
+                history.moveB((float) vitesseB, (float) Math.toDegrees(angleB));
+
+                history.act();
+                act(laserA);
+                act(laserB);
+
+
+                invalidate(); // demande à rafraichir la vue
             }
-
-            // IA de B
-            IAupdate++;
-            if(IAupdate/50 > 1) {
-                IAupdate = 0;
-                vitesseB = Math.max(Math.random(), 0.3);
-                angleB = Math.random() * 2 * Math.PI;
-                history.fireB();
-            }
-            history.moveB((float) vitesseB, (float) Math.toDegrees(angleB));
-
-            history.act();
-            act(laserA);
-            act(laserB);
-
-
-            invalidate(); // demande à rafraichir la vue
         }
     }
 
