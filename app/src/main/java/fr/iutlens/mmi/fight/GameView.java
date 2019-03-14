@@ -76,6 +76,8 @@ public class GameView extends View implements TimerAction {
         SpriteSheet.register(R.mipmap.spritefantomered,4,5,this.getContext());
         SpriteSheet.register(R.mipmap.arena,1,1,this.getContext());
         SpriteSheet.register(R.mipmap.sprite_balle,4,1,this.getContext());
+        SpriteSheet.register(R.mipmap.sprite_balle2,4,1,this.getContext());
+
 
 
 
@@ -103,7 +105,7 @@ public class GameView extends View implements TimerAction {
         this.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!timer.isRunning()) timer.scheduleRefresh(16);
+            if (!timer.isRunning()) timer.scheduleRefresh(16);
             }
         });
     }
@@ -121,7 +123,6 @@ public class GameView extends View implements TimerAction {
         if(history.persoA.vie > 0 && history.persoB.vie > 0) {
             if (this.isShown()) { // Si la vue est visible
                 timer.scheduleRefresh(16); // programme le prochain rafraichissement
-
 
                 if (pad != null){
                     history.moveA((float) pad.getLength(), -(float) Math.toDegrees(pad.getAngle()));
@@ -246,13 +247,15 @@ public class GameView extends View implements TimerAction {
                 act(laserA);
                 act(laserB);
 
-
                 invalidate(); // demande à rafraichir la vue
             }
         }
         else {
+
             Intent intent = new Intent(getContext(),EndGameActivity.class);
-            //input.putextra
+            intent.putExtra("A-vie", history.persoA.vie);
+            intent.putExtra("B-vie", history.persoB.vie);
+            intent.putExtra("Rounds", history.round);
             getContext().startActivity(intent);
         }
     }

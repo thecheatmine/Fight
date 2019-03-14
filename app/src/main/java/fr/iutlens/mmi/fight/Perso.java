@@ -7,7 +7,7 @@ import java.util.List;
  */
 
 class Perso extends Sprite {
-    public static final int SPEED = 8;
+    public static final int SPEED = 4;
     private final List<Sprite> laser;
     private final int dxLaser;
     private int frame;
@@ -52,6 +52,6 @@ class Perso extends Sprite {
 
     public void fire(boolean sens) {
         if(sens) laser.add(new Sprite(R.mipmap.sprite_balle,x-sprite.w/2+dxLaser,y+sprite.h/2, SPEED, 0));
-        else laser.add(new Sprite(R.mipmap.sprite_balle,x-sprite.w/2+dxLaser,y+sprite.h/2, SPEED, 180));
+        else laser.add(new Sprite(R.mipmap.sprite_balle2,x-sprite.w/2+dxLaser,y+sprite.h/2, SPEED, 180));
     }
 }
