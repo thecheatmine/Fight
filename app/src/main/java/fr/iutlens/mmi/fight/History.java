@@ -91,12 +91,11 @@ public class History {
 
         for(int i = 0; i < laserB.size(); i++) {
             if(
-                laserB.get(i).x > persoA.x
-                && laserB.get(i).x < (persoA.x+80)
-                && laserB.get(i).y > persoA.y
-                && laserB.get(i).y < (persoA.y+125)
+                laserB.get(i).x > persoA.x-10
+                && laserB.get(i).x < (persoA.x+60)
+                && laserB.get(i).y > persoA.y-30
+                && laserB.get(i).y < (persoA.y+90)
             ) {
-                persoA.y = 0;
                 persoA.vie -= 1;
                 laserB.remove(i);
             }
@@ -107,12 +106,11 @@ public class History {
 
         for(int i = 0; i < laserA.size(); i++) {
             if(
-                laserA.get(i).x > persoB.x
-                && laserA.get(i).x < (persoB.x+80)
-                && laserA.get(i).y > persoB.y
-                && laserA.get(i).y < (persoB.y+125)
+                laserA.get(i).x > persoB.x-10
+                && laserA.get(i).x < (persoB.x+60)
+                && laserA.get(i).y > persoB.y-30
+                && laserA.get(i).y < (persoB.y+90)
             ) {
-                persoB.y = 0;
                 persoB.vie -= 1;
                 laserA.remove(i);
             }

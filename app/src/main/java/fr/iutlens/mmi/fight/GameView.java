@@ -13,6 +13,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import fr.iutlens.mmi.fight.utils.Firebutton;
 import fr.iutlens.mmi.fight.utils.Pad;
 import fr.iutlens.mmi.fight.utils.RefreshHandler;
 import fr.iutlens.mmi.fight.utils.SpriteSheet;
@@ -37,6 +38,7 @@ public class GameView extends View implements TimerAction {
 
     private List<Sprite> laserA, laserB;
     private Pad pad;
+    private Firebutton firebutton;
     private History history;
     private boolean fire;
 
@@ -77,6 +79,7 @@ public class GameView extends View implements TimerAction {
         SpriteSheet.register(R.mipmap.arena,1,1,this.getContext());
         SpriteSheet.register(R.mipmap.sprite_balle,4,1,this.getContext());
         SpriteSheet.register(R.mipmap.sprite_balle2,4,1,this.getContext());
+        SpriteSheet.register(R.mipmap.heart,1,1,this.getContext());
 
 
 
@@ -274,6 +277,14 @@ public class GameView extends View implements TimerAction {
 
         SpriteSheet.get(R.mipmap.arena).paint(canvas,0,0,0);
 
+        for(int i = 0; i < history.persoA.vie; i++ ) {
+            SpriteSheet.get(R.mipmap.heart).paint(canvas,0,(i+1)*50,50);
+        }
+
+        for(int i = 0; i < history.persoB.vie; i++ ) {
+            SpriteSheet.get(R.mipmap.heart).paint(canvas,0,GameView.SIZE_X-((i+2)*50),50);
+        }
+
         // On choisit la transformation à appliquer à la vue i.e. la position
         // de la "camera"
 
@@ -332,8 +343,17 @@ public class GameView extends View implements TimerAction {
 
     }
 
+    public void onProtect(){
+        this.fire = true;
+
+    }
+
     public void setPad(Pad pad) {
         this.pad = pad;
+    }
+
+    public void setFirebutton(Firebutton firebutton) {
+        this.firebutton = firebutton;
     }
 
     public void setLevel(int level) {

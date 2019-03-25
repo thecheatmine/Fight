@@ -3,6 +3,7 @@ package fr.iutlens.mmi.fight;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
+import android.view.View;
 import android.widget.TextView;
 
 public class EndGameActivity extends AppCompatActivity {
@@ -32,6 +33,11 @@ public class EndGameActivity extends AppCompatActivity {
         textBvie.setText("B : "+Bvie+" vies");
         TextView rounds = findViewById(R.id.Rounds);
         rounds.setText(Rounds+" rounds");
+    }
+
+    public void onSelect(View jouer) {
+        Intent intent = new Intent(this, SelectionActivity.class);
+        startActivity(intent);
     }
 
 }

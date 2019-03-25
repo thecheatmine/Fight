@@ -1,5 +1,6 @@
 package fr.iutlens.mmi.fight;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,6 +24,11 @@ public class Navigation_Activity extends AppCompatActivity {
                         // Hide the nav bar and status bar
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
+    }
+
+    public void onHistoire(View jouer) {
+        Intent intent = new Intent(this, SelectionActivity.class);
+        startActivity(intent);
     }
 
     @Override
